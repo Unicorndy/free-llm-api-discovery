@@ -190,10 +190,10 @@ function needsFreshResults(text) {
   return /\b(latest|current|recent|today|tonight|yesterday|this (week|month|year)|news|now|score|price|weather|election|release[sd]?|20\d\d)\b/i.test(text);
 }
 
-async function searchSiteServer(text, signal) {
+async function searchSiteServer(text, signal, fresh) {
   const res = await fetch(SITE_SERVER + '/search', {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'omit', signal,
-    body: JSON.stringify({ q: text.slice(0, 300) }),
+    body: JSON.stringify({ q: text.slice(0, 300), fresh }),
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const d = await res.json();
@@ -204,7 +204,7 @@ async function searchSiteServer(text, signal) {
 
 async function webSearch(q, signal, fresh = false, fullText = q) {
   const tasks = [searchDuckDuckGo(q, signal), searchWikipedia(q, signal)];
-  if (SITE_SERVER && fresh) tasks.unshift(searchSiteServer(fullText, signal));
+  if (SITE_SERVER) tasks.unshift(searchSiteServer(fullText, signal, fresh));
   const results = await Promise.allSettled(tasks);
   if (signal && signal.aborted) throw new DOMException('Aborted', 'AbortError');
   const seen = new Set();
@@ -530,7 +530,7 @@ async function send(text) {
     if (shouldSearch(text, settings.searchMode)) {
       const query = toQuery(text);
       const fresh = settings.searchMode === 'always' || needsFreshResults(text);
-      setStatus(turn, fresh && SITE_SERVER ? 'Searching the web…' : 'Searching Wikipedia and DuckDuckGo…');
+      setStatus(turn, SITE_SERVER ? 'Searching the web…' : 'Searching Wikipedia and DuckDuckGo…');
       sources = await webSearch(query, signal, fresh, text);
       renderSources(turn, sources, query);
     }
