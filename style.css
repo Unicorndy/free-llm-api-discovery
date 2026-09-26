@@ -216,3 +216,4 @@ dialog::backdrop { background: rgba(10, 20, 30, .45); }
 @media (prefers-reduced-motion: reduce) {
   .status::before { animation: none; }
 }
+.api-link { color: var(--accent); font-weight: 700; white-space: nowrap; }
