@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!-- Security: only this site's own scripts may run; network calls must use HTTPS; no plugins, no form posts. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https:; object-src 'none'; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="description" content="Use Search Chat's free AI and web search from your own projects: an OpenAI-compatible API with curl, Python and JavaScript examples.">
   <title>Search Chat API</title>
@@ -45,6 +45,7 @@
         <a href="#python">Python</a>
         <a href="#javascript">JavaScript</a>
         <a href="#search">Web search</a>
+        <a href="#models">Free models</a>
         <a href="#reference">Reference</a>
       </nav>
 
@@ -186,6 +187,13 @@ reply = client.chat.completions.create(model="auto", messages=[
     {"role": "user", "content": f"{question}\n\nWeb results:\n{sources}"},
 ])
 print(reply.choices[0].message.content)</code></pre>
+      </section>
+
+      <section id="models">
+        <h2>Free models right now</h2>
+        <p>A daily job lists the free models from each approved provider and sends each one a tiny test prompt. Pass any working model as <code>model</code>, for example <code>"workers-ai/@cf/openai/gpt-oss-120b"</code>, or use <code>auto</code>.</p>
+        <p class="muted" id="catalogUpdated">Loading…</p>
+        <div id="catalog"></div>
       </section>
 
       <section id="reference">

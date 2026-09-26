@@ -58,10 +58,11 @@ const SITE_PROVIDER = {
   label: "This site's server — free, no key needed",
   needsKey: false,
   defaultModel: 'auto',
-  keyHelp: 'No key needed. The server picks the best free model available right now.',
+  keyHelp: 'No key needed. The server picks the best free model available right now, or choose one below.',
   endpoint: () => SITE_SERVER + '/chat',
-  modelsUrl: null,
-  filterModels: (list) => list,
+  // providers.json is written daily by the discovery job; its "data" lists models that passed a test.
+  modelsUrl: () => 'providers.json',
+  filterModels: (list) => [{ id: 'auto', name: 'Automatic (best free model available)' }, ...list],
   fallbackModels: [{ id: 'auto', label: 'Automatic (best free model available)' }],
 };
 const PROVIDERS = SITE_SERVER ? { site: SITE_PROVIDER, ...BASE_PROVIDERS } : BASE_PROVIDERS;
@@ -475,8 +476,10 @@ function updatePill() {
   let model = settings.model || p.defaultModel;
   let provider = settings.provider;
   if (settings.provider === 'site') {
+    const picked = settings.model && settings.model !== 'auto' && settings.model.includes('/');
     const known = lastAnswered && lastAnswered.via === 'site' ? lastAnswered : serverDefault;
-    if (known) ({ provider, model } = known);
+    if (picked) [provider, model] = [settings.model.slice(0, settings.model.indexOf('/')), settings.model.slice(settings.model.indexOf('/') + 1)];
+    else if (known) ({ provider, model } = known);
     else model = '';
   }
   if (missingKey) els.pill.textContent = 'Add an API key';
@@ -710,8 +713,9 @@ async function refreshModels() {
       .map((m) => ({ ...m, id: m.id || m.name }));
     const models = p.filterModels(raw, ctx).map((m) => ({ id: m.id, label: modelLabel(m) }));
     fillModels(models.length ? models : p.fallbackModels, keep);
-    els.modelStatus.textContent = models.length
-      ? `${models.length} free model${models.length === 1 ? '' : 's'} found.`
+    const found = models.filter((m) => m.id !== 'auto').length;
+    els.modelStatus.textContent = found
+      ? `${found} free model${found === 1 ? '' : 's'} found.`
       : 'No free models found. Type a model ID above.';
   } catch {
     if (request !== modelRequest) return;

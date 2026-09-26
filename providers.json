@@ -1,0 +1,463 @@
+{
+  "updated": "2026-09-26T17:24:33.415Z",
+  "note": "Generated daily by scripts/discover.mjs. Provider policy fields were researched in Sept 2026; verify before relying on them.",
+  "object": "list",
+  "data": [
+    {
+      "id": "workers-ai/@cf/nvidia/nemotron-3-120b-a12b",
+      "name": "Cloudflare Workers AI: nemotron-3-120b-a12b",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/openai/gpt-oss-120b",
+      "name": "Cloudflare Workers AI: gpt-oss-120b",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "name": "Cloudflare Workers AI: llama-3.3-70b-instruct-fp8-fast",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/qwen/qwen2.5-coder-32b-instruct",
+      "name": "Cloudflare Workers AI: qwen2.5-coder-32b-instruct",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/qwen/qwq-32b",
+      "name": "Cloudflare Workers AI: qwq-32b",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/qwen/qwen3-30b-a3b-fp8",
+      "name": "Cloudflare Workers AI: qwen3-30b-a3b-fp8",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/aisingapore/gemma-sea-lion-v4-27b-it",
+      "name": "Cloudflare Workers AI: gemma-sea-lion-v4-27b-it",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/qwen/qwen3.8-27b",
+      "name": "Cloudflare Workers AI: qwen3.8-27b",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/google/gemma-4-26b-a4b-it",
+      "name": "Cloudflare Workers AI: gemma-4-26b-a4b-it",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/openai/gpt-oss-20b",
+      "name": "Cloudflare Workers AI: gpt-oss-20b",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/meta/llama-4-scout-17b-16e-instruct",
+      "name": "Cloudflare Workers AI: llama-4-scout-17b-16e-instruct",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/meta/llama-3.1-8b-instruct-fp8",
+      "name": "Cloudflare Workers AI: llama-3.1-8b-instruct-fp8",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/meta/llama-3.2-3b-instruct",
+      "name": "Cloudflare Workers AI: llama-3.2-3b-instruct",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/meta/llama-3.2-1b-instruct",
+      "name": "Cloudflare Workers AI: llama-3.2-1b-instruct",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/zai-org/glm-4.7-flash",
+      "name": "Cloudflare Workers AI: glm-4.7-flash",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/ibm-granite/granite-4.0-h-micro",
+      "name": "Cloudflare Workers AI: granite-4.0-h-micro",
+      "owned_by": "workers-ai"
+    },
+    {
+      "id": "workers-ai/@cf/deepseek-ai/deepseek-r1-distill-qwen-32b",
+      "name": "Cloudflare Workers AI: deepseek-r1-distill-qwen-32b",
+      "owned_by": "workers-ai"
+    }
+  ],
+  "providers": [
+    {
+      "id": "workers-ai",
+      "name": "Cloudflare Workers AI",
+      "access": "proxy only (runs inside the site server)",
+      "keyOwner": "site owner (Cloudflare account binding, no key)",
+      "quotaReset": "daily: 10,000 neurons a day on the free plan",
+      "trainsOnData": "no",
+      "configured": true,
+      "working": 17,
+      "models": [
+        {
+          "id": "@cf/nvidia/nemotron-3-120b-a12b",
+          "ok": true,
+          "latencyMs": 3030,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/openai/gpt-oss-120b",
+          "ok": true,
+          "latencyMs": 6962,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+          "ok": true,
+          "latencyMs": 371,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/qwen/qwen2.5-coder-32b-instruct",
+          "ok": true,
+          "latencyMs": 491,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/qwen/qwq-32b",
+          "ok": true,
+          "latencyMs": 5593,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/qwen/qwen3-30b-a3b-fp8",
+          "ok": true,
+          "latencyMs": 1442,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/aisingapore/gemma-sea-lion-v4-27b-it",
+          "ok": true,
+          "latencyMs": 412,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/qwen/qwen3.8-27b",
+          "ok": true,
+          "latencyMs": 3158,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/google/gemma-4-26b-a4b-it",
+          "ok": true,
+          "latencyMs": 2154,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/openai/gpt-oss-20b",
+          "ok": true,
+          "latencyMs": 631,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/meta/llama-4-scout-17b-16e-instruct",
+          "ok": true,
+          "latencyMs": 609,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/meta/llama-3.1-8b-instruct-fp8",
+          "ok": true,
+          "latencyMs": 701,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/meta/llama-3.2-3b-instruct",
+          "ok": true,
+          "latencyMs": 292,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/meta/llama-3.2-1b-instruct",
+          "ok": true,
+          "latencyMs": 314,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/zai-org/glm-4.7-flash",
+          "ok": true,
+          "latencyMs": 1218,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/ibm-granite/granite-4.0-h-micro",
+          "ok": true,
+          "latencyMs": 2062,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b",
+          "ok": true,
+          "latencyMs": 17059,
+          "checked": "2026-09-26T17:22:10.285Z"
+        },
+        {
+          "id": "@cf/mistralai/mistral-small-3.1-24b-instruct",
+          "ok": false,
+          "latencyMs": 426,
+          "checked": "2026-09-26T17:22:10.285Z",
+          "error": "unexpected reply: Ping"
+        },
+        {
+          "id": "@cf/deepseek-ai/deepseek-v4-flash-0731",
+          "ok": false,
+          "latencyMs": null,
+          "checked": "2026-09-26T17:22:10.285Z",
+          "error": "Model failed: workers-ai: 5035: Model @cf/deepseek-ai/deepseek-v4-flash-0731 is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/"
+        },
+        {
+          "id": "@cf/deepseek-ai/deepseek-v4-pro-0813",
+          "ok": false,
+          "latencyMs": null,
+          "checked": "2026-09-26T17:22:10.285Z",
+          "error": "Model failed: workers-ai: 5035: Model @cf/deepseek-ai/deepseek-v4-pro-0813 is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/pl"
+        },
+        {
+          "id": "@cf/moonshotai/kimi-k2.6",
+          "ok": false,
+          "latencyMs": null,
+          "checked": "2026-09-26T17:22:10.285Z",
+          "error": "Model failed: workers-ai: 5035: Model @cf/moonshotai/kimi-k2.6 is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/plans"
+        },
+        {
+          "id": "@cf/moonshotai/kimi-k2.7-code",
+          "ok": false,
+          "latencyMs": null,
+          "checked": "2026-09-26T17:22:10.285Z",
+          "error": "Model failed: workers-ai: 5035: Model @cf/moonshotai/kimi-k2.7-code is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/plans"
+        },
+        {
+          "id": "@cf/zai-org/glm-5.2",
+          "ok": false,
+          "latencyMs": null,
+          "checked": "2026-09-26T17:22:10.285Z",
+          "error": "Model failed: workers-ai: 5035: Model @cf/zai-org/glm-5.2 is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/plans"
+        },
+        {
+          "id": "@cf/zai-org/glm-5.3",
+          "ok": false,
+          "latencyMs": null,
+          "checked": "2026-09-26T17:22:10.285Z",
+          "error": "Model failed: workers-ai: 5035: Model @cf/zai-org/glm-5.3 is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/plans"
+        },
+        {
+          "id": "@cf/zai-org/glm-5.3-flash",
+          "ok": false,
+          "latencyMs": null,
+          "checked": "2026-09-26T17:22:10.285Z",
+          "error": "Model failed: workers-ai: 5035: Model @cf/zai-org/glm-5.3-flash is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/plans"
+        }
+      ]
+    },
+    {
+      "id": "groq",
+      "name": "Groq",
+      "access": "proxy only (the key stays on the site server)",
+      "keyOwner": "site owner",
+      "quotaReset": "daily: per-model request and token limits (about 1,000 requests a day)",
+      "trainsOnData": "no",
+      "configured": false,
+      "working": 0,
+      "models": []
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "access": "browser or proxy (visitors can use their own key in the browser)",
+      "keyOwner": "site owner on the server; the visitor in the browser",
+      "quotaReset": "daily: 50 free requests a day under $10 lifetime credit, 1,000 after; 20 a minute",
+      "trainsOnData": "depends on the model: some free endpoints log or train on prompts",
+      "configured": false,
+      "working": 0,
+      "models": [
+        {
+          "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 1000000
+        },
+        {
+          "id": "nvidia/nemotron-3-super-120b-a12b:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 262144
+        },
+        {
+          "id": "google/gemma-4-31b-it:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 262144
+        },
+        {
+          "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 256000
+        },
+        {
+          "id": "qwen/qwen3.8-27b:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 262144
+        },
+        {
+          "id": "google/gemma-4-26b-a4b-it:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 262144
+        },
+        {
+          "id": "liquid/lfm-2.5-2.6b:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 65536
+        },
+        {
+          "id": "cohere/north-mini-code:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 256000
+        },
+        {
+          "id": "dots-studio/dots-3-note-preview:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 512000
+        },
+        {
+          "id": "google/lyria-3-clip-preview",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 1048576
+        },
+        {
+          "id": "google/lyria-3-pro-preview",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 1048576
+        },
+        {
+          "id": "inclusionai/ling-3.0-flash-fin:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 262144
+        },
+        {
+          "id": "inclusionai/ling-3.0-flash-sante:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 262144
+        },
+        {
+          "id": "nvidia/nemotron-3.5-content-safety:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 128000
+        },
+        {
+          "id": "nvidia/nemotron-3.5-lightning:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 1000000
+        },
+        {
+          "id": "openrouter/free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 200000
+        },
+        {
+          "id": "poolside/laguna-s-2.1:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 262144
+        },
+        {
+          "id": "poolside/laguna-xs-2.1:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 262144
+        },
+        {
+          "id": "stealth/space-bunny-alpha",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 1000000
+        },
+        {
+          "id": "thinkingmachines/inkling-small:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 1048576
+        },
+        {
+          "id": "thinkingmachines/inkling:free",
+          "ok": null,
+          "latencyMs": null,
+          "checked": null,
+          "context": 1048576
+        }
+      ]
+    },
+    {
+      "id": "nvidia",
+      "name": "NVIDIA",
+      "access": "proxy only (no CORS)",
+      "keyOwner": "site owner",
+      "quotaReset": "none: one-time trial credits",
+      "trainsOnData": "unknown",
+      "configured": false,
+      "working": 0,
+      "models": []
+    },
+    {
+      "id": "pollinations",
+      "name": "Pollinations",
+      "access": "browser (called directly from the visitor's browser, no server)",
+      "keyOwner": "none (anonymous tier); visitors may add their own key",
+      "quotaReset": "rate limited per visitor",
+      "trainsOnData": "unknown",
+      "configured": true,
+      "working": 1,
+      "models": [
+        {
+          "id": "openai-fast",
+          "ok": true,
+          "latencyMs": 185,
+          "checked": "2026-09-26T17:22:10.285Z"
+        }
+      ]
+    }
+  ]
+}
