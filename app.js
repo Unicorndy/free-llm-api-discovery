@@ -66,6 +66,18 @@ const SITE_PROVIDER = {
 };
 const PROVIDERS = SITE_SERVER ? { site: SITE_PROVIDER, ...BASE_PROVIDERS } : BASE_PROVIDERS;
 
+// Names for the providers that can answer, including the ones behind the site's server.
+const PROVIDER_NAMES = {
+  'workers-ai': 'Cloudflare Workers AI', groq: 'Groq', openrouter: 'OpenRouter', nvidia: 'NVIDIA',
+  pollinations: 'Pollinations', custom: 'Custom endpoint', site: "This site's server",
+};
+const providerName = (id) => PROVIDER_NAMES[id] || String(id || 'Unknown provider');
+const shortModel = (m) => String(m || '').split('/').pop().replace(/:free$/, '') || 'unknown model';
+
+// What actually answered last, and what the site's server will try first (from /health).
+let lastAnswered = null;
+let serverDefault = null;
+
 class UserError extends Error {}
 
 /* ---------- Storage (keys never leave this browser except to the chosen provider) ---------- */
@@ -275,16 +287,23 @@ async function callLLM(messages, onToken, signal) {
   }
 
   const type = res.headers.get('content-type') || '';
+  const used = { provider: settings.provider, model };
+  const noteModel = (j) => {
+    if (j && typeof j.provider === 'string' && j.provider) used.provider = j.provider;
+    if (j && typeof j.model === 'string' && j.model) used.model = j.model;
+  };
+
   if (!type.includes('event-stream') || !res.body) {
     // Provider ignored streaming: read the whole reply at once.
     const text = await res.text();
     let out = text;
     try {
       const j = JSON.parse(text);
+      noteModel(j);
       out = (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) ?? text;
     } catch { /* plain text */ }
     onToken(String(out));
-    return;
+    return used;
   }
 
   const reader = res.body.getReader();
@@ -300,14 +319,16 @@ async function callLLM(messages, onToken, signal) {
       buffer = buffer.slice(nl + 1);
       if (!line.startsWith('data:')) continue;
       const data = line.slice(5).trim();
-      if (data === '[DONE]') return;
+      if (data === '[DONE]') return used;
       let j;
       try { j = JSON.parse(data); } catch { continue; }
+      noteModel(j);
       if (j.error) throw new UserError('The provider returned an error: ' + String(j.error.message || j.error).slice(0, 200));
       const delta = j.choices && j.choices[0] && j.choices[0].delta && j.choices[0].delta.content;
       if (delta) onToken(delta);
     }
   }
+  return used;
 }
 
 /* ---------- Safe Markdown rendering (escape first, then add a small set of tags) ---------- */
@@ -423,6 +444,7 @@ function init() {
   $('saveSettings').addEventListener('click', saveFromDialog);
 
   updatePill();
+  loadServerDefault();
   if (window.matchMedia('(pointer: fine)').matches) els.input.focus();
 }
 
@@ -450,8 +472,32 @@ function scrollToBottom(force) { if (force || nearBottom()) els.log.scrollTop = 
 function updatePill() {
   const p = PROVIDERS[settings.provider];
   const missingKey = p.needsKey && !loadKey(settings.provider);
-  const model = settings.model || p.defaultModel;
-  els.pill.textContent = missingKey ? 'Add an API key' : model ? `Model: ${model}` : 'Choose a model';
+  let model = settings.model || p.defaultModel;
+  let provider = settings.provider;
+  if (settings.provider === 'site') {
+    const known = lastAnswered && lastAnswered.via === 'site' ? lastAnswered : serverDefault;
+    if (known) ({ provider, model } = known);
+    else model = '';
+  }
+  if (missingKey) els.pill.textContent = 'Add an API key';
+  else if (model) els.pill.textContent = `${providerName(provider)} · ${shortModel(model)}`;
+  else els.pill.textContent = settings.provider === 'site' ? "This site's server" : 'Choose a model';
+  els.pill.title = (model ? `${providerName(provider)}: ${model}. ` : '') + 'Change provider or model';
+}
+
+async function loadServerDefault() {
+  if (!SITE_SERVER) return;
+  try {
+    const h = await fetchJSON(SITE_SERVER + '/health', {});
+    const first = h && Array.isArray(h.providers) ? h.providers[0] : '';
+    if (first) serverDefault = { provider: first, model: (h.models && h.models[first]) || '' };
+    updatePill();
+  } catch { /* the pill keeps its generic label */ }
+}
+
+function answeredBy(used) {
+  if (used.provider === 'safety-check') return 'Blocked by the safety check (Llama Guard)';
+  return `Answered by ${providerName(used.provider)} · ${shortModel(used.model)}`;
 }
 
 function newChat() {
@@ -552,7 +598,7 @@ async function send(text) {
       turn.body.innerHTML = renderMarkdown(answer, sources);
       if (stick) scrollToBottom(true);
     };
-    await callLLM(messages, (token) => {
+    const used = await callLLM(messages, (token) => {
       if (!answer) setStatus(turn, '');
       answer += token;
       if (!frame) frame = requestAnimationFrame(paint);
@@ -562,6 +608,15 @@ async function send(text) {
 
     if (!answer.trim()) throw new UserError('The model returned an empty answer. Try again or choose another model.');
     history.push({ role: 'user', content: text }, { role: 'assistant', content: answer });
+    if (used) {
+      const by = el('p', 'answered-by', answeredBy(used));
+      by.title = `${providerName(used.provider)}: ${used.model}`;
+      turn.article.append(by);
+      if (used.provider !== 'safety-check') {
+        lastAnswered = { via: settings.provider, provider: used.provider, model: used.model };
+        updatePill();
+      }
+    }
   } catch (err) {
     setStatus(turn, '');
     if (err.name === 'AbortError') {
