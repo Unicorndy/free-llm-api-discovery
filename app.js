@@ -72,7 +72,8 @@ const PROVIDER_NAMES = {
   'workers-ai': 'Cloudflare Workers AI', groq: 'Groq', openrouter: 'OpenRouter', nvidia: 'NVIDIA',
   pollinations: 'Pollinations', custom: 'Custom endpoint', site: "This site's server",
 };
-const providerName = (id) => PROVIDER_NAMES[id] || String(id || 'Unknown provider');
+const providerName = (id) => PROVIDER_NAMES[id] ||
+  (/^community:/.test(id) ? `${String(id).slice(10)} (found on the web)` : String(id || 'Unknown provider'));
 const shortModel = (m) => String(m || '').split('/').pop().replace(/:free$/, '') || 'unknown model';
 
 // What actually answered last, and what the site's server will try first (from /health).
@@ -108,6 +109,22 @@ const settings = Object.assign(
 );
 if (!PROVIDERS[settings.provider]) settings.provider = SITE_SERVER ? 'site' : 'pollinations';
 const persistSettings = () => store.set('sc.settings', settings);
+
+// Links from the discovery page: chat.html?model=provider/model (site server) or ?provider=custom&base=https://…&model=…
+(() => {
+  const q = new URLSearchParams(location.search);
+  const model = (q.get('model') || '').slice(0, 200);
+  const provider = q.get('provider') || '';
+  if (provider === 'custom' && safeUrl(q.get('base') || '').startsWith('https://')) {
+    Object.assign(settings, { provider: 'custom', baseUrl: trimSlash(q.get('base')), model });
+  } else if (provider === 'pollinations' && PROVIDERS.pollinations) {
+    Object.assign(settings, { provider: 'pollinations', model: model || PROVIDERS.pollinations.defaultModel });
+  } else if (model && PROVIDERS.site) {
+    Object.assign(settings, { provider: 'site', model });
+  } else return;
+  persistSettings();
+  history.replaceState(null, '', location.pathname);
+})();
 
 /* ---------- Networking helpers ---------- */
 function safeUrl(s) {
