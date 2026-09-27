@@ -13,7 +13,7 @@ Find AI model APIs you can use for free, and learn how to set each one up.
   - The site server searches the web through a private SearXNG instance.
   - An AI reads the results and lists free LLM API providers, and every link is checked against the search results.
   - Endpoints that need no key are tested automatically.
-  - The results are shared by all visitors and refreshed at most once an hour.
+  - The results are shared by all visitors and refreshed at most every 6 hours.
 - **A curated directory** (`directory.json`) of well-known free providers, with official links, API base URL, example model, free-tier summary, and whether they train on your data.
 - **Daily model tests.** A GitHub Action (`.github/workflows/discover.yml`) sends every free model of the approved providers a tiny test prompt and writes `providers.json`.
 - **Setup guides** for every provider: sign up, get a key, copy curl/Python/JavaScript code, and **test your key right in the browser**. The key goes straight to the provider and is never sent to this site.
@@ -58,7 +58,3 @@ Daily GitHub Action ──► scripts/discover.mjs tests free models ──► p
 | `config.js` | The site server's address |
 | `providers.json` | Daily model test results, committed by the bot |
 | `scripts/discover.mjs`, `.github/workflows/discover.yml` | Daily model tests |
-
-## License
-
-[MIT](LICENSE)
