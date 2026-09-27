@@ -10,7 +10,15 @@
 
 import { readFile, writeFile } from 'node:fs/promises';
 
-const BASE = (process.env.SEARCH_CHAT_BASE_URL || 'https://search-chat.unicorndy.workers.dev/v1').replace(/\/+$/, '');
+// The site server's address comes from config.js (workerUrl) unless SEARCH_CHAT_BASE_URL is set.
+async function baseUrl() {
+  if (process.env.SEARCH_CHAT_BASE_URL) return process.env.SEARCH_CHAT_BASE_URL.replace(/\/+$/, '');
+  const config = await readFile(new URL('../config.js', import.meta.url), 'utf8');
+  const m = /"workerUrl"\s*:\s*"(https:\/\/[^"]+)"/.exec(config);
+  if (!m) throw new Error('Set workerUrl in config.js or SEARCH_CHAT_BASE_URL.');
+  return m[1].replace(/\/+$/, '') + '/v1';
+}
+let BASE = '';
 const KEY = process.env.SEARCH_CHAT_API_KEY || '';
 const OUT = process.env.OUT || new URL('../providers.json', import.meta.url);
 const TEST_PROMPT = 'Reply with the single word: pong';
@@ -117,6 +125,7 @@ const workerTest = (providerId, model) => chatTest(`${BASE}/chat/completions`,
 
 async function main() {
   if (!KEY) throw new Error('Set SEARCH_CHAT_API_KEY.');
+  BASE = await baseUrl();
   let previous = { providers: [] };
   try { previous = JSON.parse(await readFile(OUT, 'utf8')); } catch { /* first run */ }
   const health = await getJSON(BASE.replace(/\/v1$/, '') + '/health');
