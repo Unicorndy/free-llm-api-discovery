@@ -123,7 +123,7 @@ const persistSettings = () => store.set('sc.settings', settings);
     Object.assign(settings, { provider: 'site', model });
   } else return;
   persistSettings();
-  history.replaceState(null, '', location.pathname);
+  window.history.replaceState(null, '', location.pathname);
 })();
 
 /* ---------- Networking helpers ---------- */
