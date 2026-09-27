@@ -1,53 +1,59 @@
-# Search Chat
+# Free LLM API Discovery
 
-A free AI chat that searches the web before answering and cites its sources, plus an OpenAI-compatible API for your own projects.
+Find AI model APIs you can use for free, and learn how to set each one up.
 
-- **Chat:** https://unicorndy.github.io/free-llm-api-discovery/
-- **API guide and live list of free models:** https://unicorndy.github.io/free-llm-api-discovery/api.html
+- **Discover:** https://unicorndy.github.io/free-llm-api-discovery/
+- **Test chat:** https://unicorndy.github.io/free-llm-api-discovery/chat.html
+- **API guide:** https://unicorndy.github.io/free-llm-api-discovery/api.html
+
+## What it does
+
+- **Live web discovery.** Press **Run discovery**:
+  - The site server searches the web through a private SearXNG instance.
+  - An AI reads the results and lists free LLM API providers, and every link is checked against the search results.
+  - Endpoints that need no key are tested automatically.
+  - The results are shared by all visitors and refreshed at most once an hour.
+- **A curated directory** (`directory.json`) of well-known free providers, with official links, API base URL, example model, free-tier summary, and whether they train on your data.
+- **Daily model tests.** A GitHub Action (`.github/workflows/discover.yml`) sends every free model of the approved providers a tiny test prompt and writes `providers.json`.
+- **Setup guides** for every provider: sign up, get a key, copy curl/Python/JavaScript code, and **test your key right in the browser**. The key goes straight to the provider and is never sent to this site.
+- **Test chat and API:** try the working models in the chat, or call them from your own code through an OpenAI-compatible API.
 
 ## How it works
 
 ```
-Browser ──► this static site (GitHub Pages)
+Browser ──► this static site (GitHub Pages): discovery page, test chat, API guide
    │
-   └──► site server (Cloudflare Worker): safety check, then free AI providers in order
-            ├─ Workers AI · Groq · OpenRouter · NVIDIA   (keys are Worker secrets, never in this repo)
-            └─ web search: a private SearXNG instance, with Tavily as a rationed fallback
+   └──► site server (Cloudflare Worker)
+          ├─ live discovery: web search → AI extraction → validation → keyless tests → shared cache
+          ├─ chat: safety check, then free providers in order (keys are Worker secrets, never in this repo)
+          └─ web search: private SearXNG, Tavily as a rationed fallback
 Daily GitHub Action ──► scripts/discover.mjs tests free models ──► providers.json
 ```
 
-- **Auto web search:** factual questions trigger a search. The Worker's search runs alongside Wikipedia and DuckDuckGo. Results go to the model labelled as untrusted data, and the citations [1], [2] become highlighted links.
-- **Free-model discovery:** every day at 03:17 UTC, `.github/workflows/discover.yml` runs `scripts/discover.mjs`:
-  - It lists the free models of each approved provider and sends each one a tiny test prompt through the site server.
-  - It writes `providers.json`, which the site server, the Settings dialog and the API page read, so dead models drop out and new ones appear.
-  - It only scans approved providers and never adds a new one by itself.
-- **Transparency:** every answer says which provider and model wrote it.
-- **Choices:** in Settings, visitors can pick a specific checked model, use keyless Pollinations, or use their own OpenRouter or OpenAI-compatible key. Their key stays in their browser.
-
-## Use the API
-
-It speaks the OpenAI format, so set your library's base URL to `https://search-chat.unicorndy.workers.dev/v1` and use model `auto`. It needs an API key issued by the site owner. See [api.html](https://unicorndy.github.io/free-llm-api-discovery/api.html) for curl, Python and JavaScript examples, limits and error codes.
-
 ## Safety design
 
-- **No keys in this repo or on the page.** Provider keys are encrypted Cloudflare Worker secrets. The discovery Action uses one GitHub Actions secret, which GitHub masks in logs.
+- **No keys in this repo or on the page.** Provider keys are encrypted Cloudflare Worker secrets. The daily Action uses one GitHub Actions secret, which GitHub masks in logs.
+- **Web results are untrusted:**
+  - Discovery only keeps `https` links on domains that appeared in the search results.
+  - Auto-tests only call public hosts, without following redirects.
+  - Everything is shown with plain text rendering and labelled **unverified**.
+- **Your key stays yours.** The key test runs from your browser straight to the provider. Nothing is stored.
+- **Opt-in for unknown services.** Web-found providers that work without a key can be chosen in the test chat, but the server never uses them automatically.
 - **Locked-down server:**
-  - Browsers on other websites can't call it.
-  - API access needs a key, and only keys can use extras such as trying unchecked models.
+  - Other websites' browsers can't call it.
+  - API access needs a key.
   - Requests are rate-limited and size-capped.
-- **Safety check:** Llama Guard screens every question before any AI provider sees it. The system prompt refuses clearly harmful requests.
-- **Safe rendering and strict CSP:** model and search output is escaped before a small set of Markdown is applied. Only this site's own scripts can run.
-- **Prompt-injection guard:** web results are marked as untrusted data, and the model is told to ignore instructions inside them.
-- **Privacy note:** messages go to third-party AI providers, so don't share private information. `providers.json` records each provider's known data-training policy.
+  - Every chat question passes a Llama Guard safety check first.
+- **Strict Content-Security-Policy and escaped rendering.** Only this site's own scripts run, and model output can't inject HTML.
+- **Privacy:** messages sent in the test chat go to third-party AI providers, so don't share private information.
 
 ## Files
 
 | File | Purpose |
 | --- | --- |
-| `index.html`, `app.js`, `style.css` | The chat |
+| `index.html`, `home.js`, `home.css`, `directory.json` | Discovery page and curated directory |
+| `chat.html`, `app.js`, `style.css` | Test chat |
 | `api.html`, `api.js`, `api.css` | API guide and live model list |
 | `config.js` | The site server's address |
-| `providers.json` | Daily discovery results, committed by the bot |
-| `scripts/discover.mjs`, `.github/workflows/discover.yml` | Discovery job |
-
-The source of truth lives in a private kit repository. This repo is its published `site/` folder.
+| `providers.json` | Daily model test results, committed by the bot |
+| `scripts/discover.mjs`, `.github/workflows/discover.yml` | Daily model tests |
