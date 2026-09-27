@@ -5,6 +5,7 @@ Find AI model APIs you can use for free, and learn how to set each one up.
 - **Discover:** https://unicorndy.github.io/free-llm-api-discovery/
 - **Test chat:** https://unicorndy.github.io/free-llm-api-discovery/chat.html
 - **API guide:** https://unicorndy.github.io/free-llm-api-discovery/api.html
+- **Run your own copy:** https://github.com/Unicorndy/free-llm-api-discovery-kit (setup guide and security walkthrough)
 
 ## What it does
 
