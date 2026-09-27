@@ -58,3 +58,7 @@ Daily GitHub Action ──► scripts/discover.mjs tests free models ──► p
 | `config.js` | The site server's address |
 | `providers.json` | Daily model test results, committed by the bot |
 | `scripts/discover.mjs`, `.github/workflows/discover.yml` | Daily model tests |
+
+## License
+
+[MIT](LICENSE)
