@@ -1,40 +1,53 @@
 # Search Chat
 
-A free AI chat page that automatically searches the web before answering and marks its sources. It's plain HTML, CSS and JavaScript, so it runs on GitHub Pages with no server and no build step.
+A free AI chat that searches the web before answering and cites its sources, plus an OpenAI-compatible API for your own projects.
 
-## Put it online with GitHub Pages
-
-1. Create a new public repository on GitHub.
-2. Upload `index.html`, `style.css`, `app.js`, `config.js`, `.nojekyll` and this README to the root of the repo.
-3. Go to **Settings → Pages**, set **Source** to "Deploy from a branch", pick `main` and `/ (root)`, and save.
-4. After a minute or two your site is live at `https://YOUR-USERNAME.github.io/YOUR-REPO/`.
-
-## Site server (optional)
-
-`config.js` holds the address of this site's Cloudflare Worker. The setup assistant fills it in. When it is set, the chat uses the Worker by default: it tries several free AI providers in turn, runs a safety check, and searches the web for news and current events with keys that never reach the browser. Leave `workerUrl` empty to run without it.
+- **Chat:** https://unicorndy.github.io/free-llm-api-discovery/
+- **API guide and live list of free models:** https://unicorndy.github.io/free-llm-api-discovery/api.html
 
 ## How it works
 
-- **AI providers.** By default it uses Pollinations' anonymous text endpoint, which needs no key. In Settings, visitors can switch to OpenRouter (free key, and the app automatically lists only the models that cost nothing) or any OpenAI-compatible endpoint that allows browser requests.
-- **Auto web search.** In Auto mode, factual questions trigger a search of Wikipedia and DuckDuckGo Instant Answers (both free, keyless, and browser-friendly). Results are sent to the model with instructions to cite them as [1], [2]; those citations become highlighted links. Writing and coding requests skip the search. Visitors can set search to Always or Off.
+```
+Browser ──► this static site (GitHub Pages)
+   │
+   └──► site server (Cloudflare Worker): safety check, then free AI providers in order
+            ├─ Workers AI · Groq · OpenRouter · NVIDIA   (keys are Worker secrets, never in this repo)
+            └─ web search: a private SearXNG instance, with Tavily as a rationed fallback
+Daily GitHub Action ──► scripts/discover.mjs tests free models ──► providers.json
+```
+
+- **Auto web search:** factual questions trigger a search. The Worker's search runs alongside Wikipedia and DuckDuckGo. Results go to the model labelled as untrusted data, and the citations [1], [2] become highlighted links.
+- **Free-model discovery:** every day at 03:17 UTC, `.github/workflows/discover.yml` runs `scripts/discover.mjs`:
+  - It lists the free models of each approved provider and sends each one a tiny test prompt through the site server.
+  - It writes `providers.json`, which the site server, the Settings dialog and the API page read, so dead models drop out and new ones appear.
+  - It only scans approved providers and never adds a new one by itself.
+- **Transparency:** every answer says which provider and model wrote it.
+- **Choices:** in Settings, visitors can pick a specific checked model, use keyless Pollinations, or use their own OpenRouter or OpenAI-compatible key. Their key stays in their browser.
+
+## Use the API
+
+It speaks the OpenAI format, so set your library's base URL to `https://search-chat.unicorndy.workers.dev/v1` and use model `auto`. It needs an API key issued by the site owner. See [api.html](https://unicorndy.github.io/free-llm-api-discovery/api.html) for curl, Python and JavaScript examples, limits and error codes.
 
 ## Safety design
 
-- **No keys in the code.** Never commit an API key: anything in a public repo or a static page can be read by anyone. Visitors' own keys stay in their browser (session-only unless they tick "Remember").
-- **Strict Content-Security-Policy.** Only this site's scripts can run, and network calls must use HTTPS.
-- **Safe rendering.** Model output is escaped before a small set of Markdown is applied, so a model can't inject HTML or scripts. Links open in a new tab with `noopener`.
-- **Prompt-injection guard.** Web results are labeled as untrusted data and the model is told to ignore instructions inside them.
-- **Content rules.** A system prompt tells the model to refuse clearly harmful requests. Providers apply their own moderation too, but no filter is perfect, so keep the on-page disclaimer.
-- **Abuse limits.** A 4-second cooldown and 2,000-character limit per message protect the free tiers.
+- **No keys in this repo or on the page.** Provider keys are encrypted Cloudflare Worker secrets. The discovery Action uses one GitHub Actions secret, which GitHub masks in logs.
+- **Locked-down server:**
+  - Browsers on other websites can't call it.
+  - API access needs a key, and only keys can use extras such as trying unchecked models.
+  - Requests are rate-limited and size-capped.
+- **Safety check:** Llama Guard screens every question before any AI provider sees it. The system prompt refuses clearly harmful requests.
+- **Safe rendering and strict CSP:** model and search output is escaped before a small set of Markdown is applied. Only this site's own scripts can run.
+- **Prompt-injection guard:** web results are marked as untrusted data, and the model is told to ignore instructions inside them.
+- **Privacy note:** messages go to third-party AI providers, so don't share private information. `providers.json` records each provider's known data-training policy.
 
-## Limits to know
+## Files
 
-- Free tiers are rate-limited and models change often. If a model disappears, open Settings and choose **Find free models**.
-- Wikipedia and DuckDuckGo Instant Answers cover encyclopedic facts well but not breaking news. For full web search (e.g. Brave Search or Tavily) you need a key, which must live on a small proxy such as a Cloudflare Worker, never in this repo. Add another search function in `app.js` next to `searchWikipedia` and include it in `webSearch`.
-- Custom endpoints must use `https://`. A local model at `http://localhost` won't work from a GitHub Pages site.
+| File | Purpose |
+| --- | --- |
+| `index.html`, `app.js`, `style.css` | The chat |
+| `api.html`, `api.js`, `api.css` | API guide and live model list |
+| `config.js` | The site server's address |
+| `providers.json` | Daily discovery results, committed by the bot |
+| `scripts/discover.mjs`, `.github/workflows/discover.yml` | Discovery job |
 
-## Customize
-
-- App name and example questions: `index.html`
-- Colors and fonts: the variables at the top of `style.css`
-- Cooldown, limits, providers and the system prompt: the top of `app.js`
+The source of truth lives in a private kit repository. This repo is its published `site/` folder.
