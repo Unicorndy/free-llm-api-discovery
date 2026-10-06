@@ -1,8 +1,14 @@
 {
-  "updated": "2026-10-05T10:23:31.109Z",
+  "updated": "2026-10-06T10:15:04.614Z",
   "note": "Generated daily by scripts/discover.mjs. Provider policy fields were researched in Sept 2026; verify before relying on them.",
   "object": "list",
   "data": [
+    {
+      "id": "workers-ai/@cf/nvidia/nemotron-3-120b-a12b",
+      "name": "Cloudflare Workers AI: nemotron-3-120b-a12b",
+      "owned_by": "workers-ai",
+      "firstWorking": "2026-09-27T09:13:44.205Z"
+    },
     {
       "id": "workers-ai/@cf/openai/gpt-oss-120b",
       "name": "Cloudflare Workers AI: gpt-oss-120b",
@@ -58,14 +64,20 @@
       "firstWorking": "2026-09-27T09:13:44.205Z"
     },
     {
+      "id": "workers-ai/@cf/meta/llama-3.1-8b-instruct-fp8",
+      "name": "Cloudflare Workers AI: llama-3.1-8b-instruct-fp8",
+      "owned_by": "workers-ai",
+      "firstWorking": "2026-09-27T09:13:44.205Z"
+    },
+    {
       "id": "workers-ai/@cf/meta/llama-3.2-3b-instruct",
       "name": "Cloudflare Workers AI: llama-3.2-3b-instruct",
       "owned_by": "workers-ai",
       "firstWorking": "2026-09-27T09:13:44.205Z"
     },
     {
-      "id": "workers-ai/@cf/ibm-granite/granite-4.0-h-micro",
-      "name": "Cloudflare Workers AI: granite-4.0-h-micro",
+      "id": "workers-ai/@cf/meta/llama-3.2-1b-instruct",
+      "name": "Cloudflare Workers AI: llama-3.2-1b-instruct",
       "owned_by": "workers-ai",
       "firstWorking": "2026-09-27T09:13:44.205Z"
     },
@@ -76,8 +88,8 @@
       "firstWorking": "2026-09-27T09:13:44.205Z"
     },
     {
-      "id": "workers-ai/@cf/nvidia/nemotron-3-120b-a12b",
-      "name": "Cloudflare Workers AI: nemotron-3-120b-a12b",
+      "id": "workers-ai/@cf/ibm-granite/granite-4.0-h-micro",
+      "name": "Cloudflare Workers AI: granite-4.0-h-micro",
       "owned_by": "workers-ai",
       "firstWorking": "2026-09-27T09:13:44.205Z"
     },
@@ -92,12 +104,6 @@
       "name": "Cloudflare Workers AI: qwen3.8-27b",
       "owned_by": "workers-ai",
       "firstWorking": "2026-09-27T09:13:44.205Z"
-    },
-    {
-      "id": "workers-ai/@cf/meta/llama-3.1-8b-instruct-fp8",
-      "name": "Cloudflare Workers AI: llama-3.1-8b-instruct-fp8",
-      "owned_by": "workers-ai",
-      "firstWorking": "2026-09-27T09:13:44.205Z"
     }
   ],
   "providers": [
@@ -109,210 +115,209 @@
       "quotaReset": "daily: 10,000 neurons a day on the free plan",
       "trainsOnData": "no",
       "configured": true,
-      "working": 16,
+      "working": 17,
       "models": [
+        {
+          "id": "@cf/nvidia/nemotron-3-120b-a12b",
+          "ok": true,
+          "latencyMs": 804,
+          "checked": "2026-10-06T10:15:04.614Z",
+          "firstWorking": "2026-09-27T09:13:44.205Z"
+        },
         {
           "id": "@cf/openai/gpt-oss-120b",
           "ok": true,
-          "latencyMs": 1322,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "latencyMs": 1690,
+          "checked": "2026-10-06T10:15:04.614Z",
           "firstWorking": "2026-09-27T09:13:44.205Z"
         },
         {
           "id": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
           "ok": true,
-          "latencyMs": 412,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "latencyMs": 275,
+          "checked": "2026-10-06T10:15:04.614Z",
           "firstWorking": "2026-09-27T09:13:44.205Z"
         },
         {
           "id": "@cf/qwen/qwen2.5-coder-32b-instruct",
           "ok": true,
-          "latencyMs": 543,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "latencyMs": 2737,
+          "checked": "2026-10-06T10:15:04.614Z",
           "firstWorking": "2026-09-27T09:13:44.205Z"
         },
         {
           "id": "@cf/qwen/qwq-32b",
           "ok": true,
-          "latencyMs": 6446,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "latencyMs": 9254,
+          "checked": "2026-10-06T10:15:04.614Z",
           "firstWorking": "2026-09-27T09:13:44.205Z"
         },
         {
           "id": "@cf/qwen/qwen3-30b-a3b-fp8",
           "ok": true,
-          "latencyMs": 1117,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "latencyMs": 1523,
+          "checked": "2026-10-06T10:15:04.614Z",
           "firstWorking": "2026-09-27T09:13:44.205Z"
         },
         {
           "id": "@cf/aisingapore/gemma-sea-lion-v4-27b-it",
           "ok": true,
-          "latencyMs": 7931,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "latencyMs": 335,
+          "checked": "2026-10-06T10:15:04.614Z",
           "firstWorking": "2026-09-27T09:13:44.205Z"
         },
         {
           "id": "@cf/google/gemma-4-26b-a4b-it",
           "ok": true,
-          "latencyMs": 4324,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "latencyMs": 1718,
+          "checked": "2026-10-06T10:15:04.614Z",
           "firstWorking": "2026-09-27T09:13:44.205Z"
         },
         {
           "id": "@cf/openai/gpt-oss-20b",
           "ok": true,
-          "latencyMs": 4000,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "latencyMs": 669,
+          "checked": "2026-10-06T10:15:04.614Z",
           "firstWorking": "2026-09-27T09:13:44.205Z"
         },
         {
           "id": "@cf/meta/llama-4-scout-17b-16e-instruct",
           "ok": true,
-          "latencyMs": 3992,
-          "checked": "2026-10-05T10:23:31.109Z",
-          "firstWorking": "2026-09-27T09:13:44.205Z"
-        },
-        {
-          "id": "@cf/meta/llama-3.2-3b-instruct",
-          "ok": true,
-          "latencyMs": 6498,
-          "checked": "2026-10-05T10:23:31.109Z",
-          "firstWorking": "2026-09-27T09:13:44.205Z"
-        },
-        {
-          "id": "@cf/ibm-granite/granite-4.0-h-micro",
-          "ok": true,
-          "latencyMs": 650,
-          "checked": "2026-10-05T10:23:31.109Z",
-          "firstWorking": "2026-09-27T09:13:44.205Z"
-        },
-        {
-          "id": "@cf/zai-org/glm-4.7-flash",
-          "ok": true,
-          "latencyMs": 1133,
-          "checked": "2026-10-05T10:23:31.109Z",
-          "firstWorking": "2026-09-27T09:13:44.205Z"
-        },
-        {
-          "id": "@cf/nvidia/nemotron-3-120b-a12b",
-          "ok": true,
-          "latencyMs": 11286,
-          "checked": "2026-10-05T10:23:31.109Z",
-          "firstWorking": "2026-09-27T09:13:44.205Z"
-        },
-        {
-          "id": "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b",
-          "ok": true,
-          "latencyMs": 11968,
-          "checked": "2026-10-05T10:23:31.109Z",
-          "firstWorking": "2026-09-27T09:13:44.205Z"
-        },
-        {
-          "id": "@cf/qwen/qwen3.8-27b",
-          "ok": true,
-          "latencyMs": 11663,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "latencyMs": 1213,
+          "checked": "2026-10-06T10:15:04.614Z",
           "firstWorking": "2026-09-27T09:13:44.205Z"
         },
         {
           "id": "@cf/meta/llama-3.1-8b-instruct-fp8",
           "ok": true,
-          "latencyMs": 12761,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "latencyMs": 3928,
+          "checked": "2026-10-06T10:15:04.614Z",
+          "firstWorking": "2026-09-27T09:13:44.205Z"
+        },
+        {
+          "id": "@cf/meta/llama-3.2-3b-instruct",
+          "ok": true,
+          "latencyMs": 7853,
+          "checked": "2026-10-06T10:15:04.614Z",
+          "firstWorking": "2026-09-27T09:13:44.205Z"
+        },
+        {
+          "id": "@cf/meta/llama-3.2-1b-instruct",
+          "ok": true,
+          "latencyMs": 249,
+          "checked": "2026-10-06T10:15:04.614Z",
+          "firstWorking": "2026-09-27T09:13:44.205Z"
+        },
+        {
+          "id": "@cf/zai-org/glm-4.7-flash",
+          "ok": true,
+          "latencyMs": 2400,
+          "checked": "2026-10-06T10:15:04.614Z",
+          "firstWorking": "2026-09-27T09:13:44.205Z"
+        },
+        {
+          "id": "@cf/ibm-granite/granite-4.0-h-micro",
+          "ok": true,
+          "latencyMs": 6104,
+          "checked": "2026-10-06T10:15:04.614Z",
+          "firstWorking": "2026-09-27T09:13:44.205Z"
+        },
+        {
+          "id": "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b",
+          "ok": true,
+          "latencyMs": 22046,
+          "checked": "2026-10-06T10:15:04.614Z",
+          "firstWorking": "2026-09-27T09:13:44.205Z"
+        },
+        {
+          "id": "@cf/qwen/qwen3.8-27b",
+          "ok": true,
+          "latencyMs": 26955,
+          "checked": "2026-10-06T10:15:04.614Z",
           "firstWorking": "2026-09-27T09:13:44.205Z"
         },
         {
           "id": "@cf/mistralai/mistral-small-3.1-24b-instruct",
           "ok": false,
-          "latencyMs": 369,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "latencyMs": 288,
+          "checked": "2026-10-06T10:15:04.614Z",
           "error": "unexpected reply: Got it!"
         },
         {
           "id": "@cf/utter-project/eurollm-9b-it",
           "ok": false,
           "latencyMs": null,
-          "checked": "2026-10-05T10:23:31.109Z",
-          "error": "Model failed: workers-ai: 5018: This account is not allowed to access @cf/utter-project/eurollm-9b-it."
+          "checked": "2026-10-06T10:15:04.614Z",
+          "error": "Model failed: workers-ai: 4003: AI model does not have config"
         },
         {
           "id": "@cf/swiss-ai/apertus-v1.5-8b",
           "ok": false,
           "latencyMs": null,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "checked": "2026-10-06T10:15:04.614Z",
           "error": "Model failed: workers-ai: 5018: This account is not allowed to access @cf/swiss-ai/apertus-v1.5-8b."
-        },
-        {
-          "id": "@cf/meta/llama-3.2-1b-instruct",
-          "ok": false,
-          "latencyMs": 554,
-          "checked": "2026-10-05T10:23:31.109Z",
-          "firstWorking": "2026-09-27T09:13:44.205Z",
-          "error": "unexpected reply: Pool"
         },
         {
           "id": "@cf/cloudflare/clef",
           "ok": false,
           "latencyMs": null,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "checked": "2026-10-06T10:15:04.614Z",
           "error": "Model failed: workers-ai: 5006: Error: required properties at '/' are 'model,state,questions'"
         },
         {
           "id": "@cf/cloudflare/clef-flash",
           "ok": false,
           "latencyMs": null,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "checked": "2026-10-06T10:15:04.614Z",
           "error": "Model failed: workers-ai: 5006: Error: required properties at '/' are 'model,state,questions'"
         },
         {
           "id": "@cf/deepseek-ai/deepseek-v4-flash-0731",
           "ok": false,
           "latencyMs": null,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "checked": "2026-10-06T10:15:04.614Z",
           "error": "Model failed: workers-ai: 5035: Model @cf/deepseek-ai/deepseek-v4-flash-0731 is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/"
         },
         {
           "id": "@cf/deepseek-ai/deepseek-v4-pro-0813",
           "ok": false,
           "latencyMs": null,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "checked": "2026-10-06T10:15:04.614Z",
           "error": "Model failed: workers-ai: 5035: Model @cf/deepseek-ai/deepseek-v4-pro-0813 is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/pl"
         },
         {
           "id": "@cf/moonshotai/kimi-k2.6",
           "ok": false,
           "latencyMs": null,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "checked": "2026-10-06T10:15:04.614Z",
           "error": "Model failed: workers-ai: 5035: Model @cf/moonshotai/kimi-k2.6 is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/plans"
         },
         {
           "id": "@cf/moonshotai/kimi-k2.7-code",
           "ok": false,
           "latencyMs": null,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "checked": "2026-10-06T10:15:04.614Z",
           "error": "Model failed: workers-ai: 5035: Model @cf/moonshotai/kimi-k2.7-code is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/plans"
         },
         {
           "id": "@cf/zai-org/glm-5.2",
           "ok": false,
           "latencyMs": null,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "checked": "2026-10-06T10:15:04.614Z",
           "error": "Model failed: workers-ai: 5035: Model @cf/zai-org/glm-5.2 is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/plans"
         },
         {
           "id": "@cf/zai-org/glm-5.3",
           "ok": false,
           "latencyMs": null,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "checked": "2026-10-06T10:15:04.614Z",
           "error": "Model failed: workers-ai: 5035: Model @cf/zai-org/glm-5.3 is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/plans"
         },
         {
           "id": "@cf/zai-org/glm-5.3-flash",
           "ok": false,
           "latencyMs": null,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "checked": "2026-10-06T10:15:04.614Z",
           "error": "Model failed: workers-ai: 5035: Model @cf/zai-org/glm-5.3-flash is not available on the Workers Free plan. Upgrade to access this model: https://dash.cloudflare.com/?to=/:account/workers/plans"
         }
       ]
@@ -365,13 +370,6 @@
           "latencyMs": null,
           "checked": null,
           "context": 256000
-        },
-        {
-          "id": "qwen/qwen3.8-27b:free",
-          "ok": null,
-          "latencyMs": null,
-          "checked": null,
-          "context": 262144
         },
         {
           "id": "google/gemma-4-26b-a4b-it:free",
@@ -472,13 +470,6 @@
           "context": 262144
         },
         {
-          "id": "stealth/space-bunny-alpha",
-          "ok": null,
-          "latencyMs": null,
-          "checked": null,
-          "context": 1000000
-        },
-        {
           "id": "thinkingmachines/inkling-small:free",
           "ok": null,
           "latencyMs": null,
@@ -518,8 +509,8 @@
         {
           "id": "openai-fast",
           "ok": true,
-          "latencyMs": 402,
-          "checked": "2026-10-05T10:23:31.109Z",
+          "latencyMs": 275,
+          "checked": "2026-10-06T10:15:04.614Z",
           "firstWorking": "2026-09-27T09:13:44.205Z"
         }
       ]
